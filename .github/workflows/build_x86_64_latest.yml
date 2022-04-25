@@ -31,7 +31,7 @@ jobs:
         with:
           context: .
           tags: |
-            ghcr.io/isalikov/nodejs-express/x86_64:latest
+            ghcr.io/isalikov/gitcv-api/x86_64:latest
           push: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Image digest

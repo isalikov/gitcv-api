@@ -35,7 +35,7 @@ jobs:
         with:
           context: .
           tags: |
-            ghcr.io/isalikov/nodejs-express/x86_64:${{ steps.vars.outputs.tag }}
+            ghcr.io/isalikov/gitcv-api/x86_64:${{ steps.vars.outputs.tag }}
           push: true
 
       - name: Image digest
