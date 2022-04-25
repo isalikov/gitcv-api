@@ -8,12 +8,14 @@ import useragent from 'express-useragent';
 dotenv.config();
 
 import routes from './routes';
+import mongodb from './services/mongodb';
 import redis from './services/redis';
 
 const main = async () => {
     const isDevelop = process.env.NODE_ENV !== 'production';
 
     await redis.connect();
+    await mongodb.connect(process.env.MONGO_URL);
 
     const app = express();
     const server = http.createServer(app);

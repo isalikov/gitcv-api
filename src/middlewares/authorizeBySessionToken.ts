@@ -3,7 +3,8 @@ import httpStatus from 'http-status';
 
 import redis from '../services/redis';
 import { AuthorizedRequest } from '../types/server';
-import getUser from '../db/getUser';
+
+import { createUserWithGithubToken, getUserByGithubID } from '../contracts';
 
 const authorizeBySessionToken = async (req: AuthorizedRequest, res: Response, next: NextFunction) => {
     const { session_token } = req.headers;
@@ -32,14 +33,13 @@ const authorizeBySessionToken = async (req: AuthorizedRequest, res: Response, ne
     }
 
     req.githubToken = githubToken;
+    const existUser = await getUserByGithubID(id);
 
-    const user = await getUser(id);
-
-    if (user) {
-        req.user = user;
+    if (existUser) {
+        console.log(existUser);
+        req.user = existUser;
     } else {
-        // TODO: create user
-        req.user = user;
+        req.user = await createUserWithGithubToken(githubToken);
     }
 
     next();
