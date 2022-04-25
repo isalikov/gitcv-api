@@ -6,5 +6,7 @@
 *.pid
 *.pid.lock
 
+.env.local
+
 /dist
 /node_modules

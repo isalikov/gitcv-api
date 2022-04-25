@@ -1,6 +1,6 @@
-# nodejs-express
+# gitcv-api
 
-Nodejs express template with TypeScript
+gitcv.io api layer
 
 ### Requirements
 - Node.js ^16
