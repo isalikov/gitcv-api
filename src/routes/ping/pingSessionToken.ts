@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { AuthorizedRequest } from '../../types/server';
 
 const pingSessionToken = (req: AuthorizedRequest, res: Response) => {
