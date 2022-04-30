@@ -1,48 +1,40 @@
-import { NextFunction, Response } from 'express';
+import { Next } from 'koa';
 import httpStatus from 'http-status';
 
 import redis from '../services/redis';
-import { AuthorizedRequest } from '../types/server';
+import { createUser, getUserByID } from '../services/user';
+import { AuthorizedContext } from '../types';
 
-import { createUserWithGithubToken, getUserByGithubID } from '../contracts';
-
-const authorizeBySessionToken = async (req: AuthorizedRequest, res: Response, next: NextFunction) => {
-    const { session_token } = req.headers;
+const authorizeBySessionToken = async (ctx: AuthorizedContext, next: Next) => {
+    const { session_token } = ctx.req.headers;
 
     if (!session_token) {
-        res.status(httpStatus.UNAUTHORIZED).send(httpStatus['UNAUTHORIZED']);
-
-        return;
+        return (ctx.status = httpStatus.UNAUTHORIZED);
     }
 
     const session = await redis.hGetAll(session_token as string);
 
     if (!session) {
-        res.status(httpStatus.UNAUTHORIZED).send(httpStatus['UNAUTHORIZED']);
-
-        return;
+        return (ctx.status = httpStatus.UNAUTHORIZED);
     }
 
     const [id] = Object.keys(session);
     const [githubToken] = Object.values(session);
 
     if (!id || !githubToken) {
-        res.status(httpStatus.UNAUTHORIZED).send(httpStatus['UNAUTHORIZED']);
-
-        return;
+        return (ctx.status = httpStatus.UNAUTHORIZED);
     }
 
-    req.githubToken = githubToken;
-    const existUser = await getUserByGithubID(id);
+    ctx.state.githubToken = githubToken;
+    const existUser = await getUserByID(id);
 
     if (existUser) {
-        console.log(existUser);
-        req.user = existUser;
+        ctx.state.user = existUser;
     } else {
-        req.user = await createUserWithGithubToken(githubToken);
+        ctx.state.user = await createUser(githubToken);
     }
 
-    next();
+    await next();
 };
 
 export default authorizeBySessionToken;

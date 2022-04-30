@@ -1,27 +1,47 @@
 import { Schema, model } from 'mongoose';
 
-import { IUser } from '../interfaces/user';
+import { ContactItem, SkillItem, User, UserModelType } from '../types';
 
-const User = model<IUser>(
-    'User',
-    new Schema<IUser>({
-        github_id: { type: Number, required: true },
-        login: { type: String, required: true },
-        node_id: { type: String, required: true },
-        avatar_url: { type: String, required: true },
+export const ContactItemSchema = new Schema<ContactItem>(
+    {
         url: { type: String, required: true },
-        repos_url: { type: String, required: true },
-        type: { type: String, required: true },
-        name: { type: String, required: true },
-        company: { type: String },
-        location: { type: String, required: true },
-        email: { type: String },
-        hireable: { type: Boolean, required: true },
-        bio: { type: String, required: true },
-        public_repos: { type: Number, required: true },
-        created_at: { type: String, required: true },
-        updated_at: { type: String, required: true },
-    }),
+        title: { type: String, required: true },
+    },
+    { id: false, _id: false },
 );
 
-export default User;
+export const SkillItemSchema = new Schema<SkillItem>(
+    {
+        level: { type: Number, required: true },
+        title: { type: String, required: true },
+    },
+    { id: false, _id: false },
+);
+
+export default model<User, UserModelType>(
+    'User',
+    new Schema<User, UserModelType>(
+        {
+            name: { type: String, required: true },
+            hireable: { type: Boolean, required: true, default: false },
+
+            github_avatar_url: { type: String, required: true, unique: true },
+            github_id: { type: Number, required: true, unique: true },
+            github_login: { type: String, required: true, unique: true },
+            github_url: { type: String, required: true, unique: true },
+            github_node_id: { type: String, required: true, unique: true },
+            github_public_repos: { type: Number, required: true, unique: true },
+
+            about: { type: String },
+            avatar_url: { type: String },
+            bio: { type: String },
+            company: { type: String },
+            email: { type: String },
+            location: { type: String },
+
+            contacts: [ContactItemSchema],
+            skills: [SkillItemSchema],
+        },
+        { timestamps: true },
+    ),
+);
