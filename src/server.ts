@@ -5,6 +5,7 @@ import http from 'http';
 import morgan from 'morgan';
 import useragent from 'express-useragent';
 import cors from 'cors';
+import rl from 'express-rate-limit';
 
 dotenv.config();
 
@@ -20,6 +21,15 @@ const main = async () => {
 
     const app = express();
     const server = http.createServer(app);
+
+    app.use(
+        rl({
+            windowMs: 60 * 1000,
+            max: 100,
+            standardHeaders: true,
+            legacyHeaders: false,
+        }),
+    );
 
     app.use(cors());
     app.use(bodyParser.json());
