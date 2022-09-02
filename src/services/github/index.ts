@@ -1,2 +1,2 @@
-export { default as getGithubUser } from './getGithubUser';
-export { default as getGithubRepos } from './getGithubRepos';
+export { default as getRepos } from './getRepos';
+export { default as getUser } from './getUser';

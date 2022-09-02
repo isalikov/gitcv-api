@@ -1,46 +1,28 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Model } from 'mongoose';
 
-import { ContactItem, SkillItem, User, UserModelType } from '../types';
+import { Profile, User } from '../types/models';
+import { MongooseTimestamp } from '../types/helpers';
 
-export const ContactItemSchema = new Schema<ContactItem>(
+type MongooseUser = User & MongooseTimestamp;
+type MongooseProfile = Profile & MongooseTimestamp;
+
+const profileSchema = new Schema<MongooseProfile, Model<MongooseProfile>>(
     {
-        url: { type: String, required: true },
-        title: { type: String, required: true },
+        time: { type: String, required: true },
+        blocks: [Schema.Types.Mixed],
     },
-    { id: false, _id: false },
+    { timestamps: true },
 );
 
-export const SkillItemSchema = new Schema<SkillItem>(
-    {
-        level: { type: Number, required: true },
-        title: { type: String, required: true },
-    },
-    { id: false, _id: false },
-);
-
-export default model<User, UserModelType>(
+export default model<MongooseUser, Model<MongooseUser>>(
     'User',
-    new Schema<User, UserModelType>(
+    new Schema<MongooseUser, Model<MongooseUser>>(
         {
-            name: { type: String, required: true },
-            hireable: { type: Boolean, required: true, default: false },
-
-            github_avatar_url: { type: String, required: true, unique: true },
-            github_id: { type: Number, required: true, unique: true },
-            github_login: { type: String, required: true, unique: true },
-            github_url: { type: String, required: true, unique: true },
-            github_node_id: { type: String, required: true, unique: true },
-            github_public_repos: { type: Number, required: true, unique: true },
-
-            about: { type: String },
-            avatar_url: { type: String },
-            bio: { type: String },
-            company: { type: String },
             email: { type: String },
-            location: { type: String },
-
-            contacts: [ContactItemSchema],
-            skills: [SkillItemSchema],
+            login: { type: String, required: true },
+            name: { type: String, required: true },
+            photo: { type: String, required: true },
+            profile: [profileSchema],
         },
         { timestamps: true },
     ),

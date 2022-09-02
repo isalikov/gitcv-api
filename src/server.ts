@@ -21,6 +21,8 @@ const main = async () => {
             await next();
         } catch (err) {
             // TODO: handle error with Sentry
+            console.error(err);
+
             ctx.status = 500;
             ctx.body = {
                 message: isDevelop ? err.message : 'Service Unavailable',

@@ -2,8 +2,7 @@ import { Next } from 'koa';
 import httpStatus from 'http-status';
 
 import redis from '../services/redis';
-import { createUser, getUserByID } from '../services/user';
-import { AuthorizedContext } from '../types';
+import { AuthorizedContext } from '../types/helpers';
 
 const authorizeBySessionToken = async (ctx: AuthorizedContext, next: Next) => {
     const { session_token } = ctx.req.headers;
@@ -18,21 +17,15 @@ const authorizeBySessionToken = async (ctx: AuthorizedContext, next: Next) => {
         return (ctx.status = httpStatus.UNAUTHORIZED);
     }
 
-    const [id] = Object.keys(session);
+    const [githubID] = Object.keys(session);
     const [githubToken] = Object.values(session);
 
-    if (!id || !githubToken) {
+    if (!githubID || !githubToken || !githubID) {
         return (ctx.status = httpStatus.UNAUTHORIZED);
     }
 
     ctx.state.githubToken = githubToken;
-    const existUser = await getUserByID(id);
-
-    if (existUser) {
-        ctx.state.user = existUser;
-    } else {
-        ctx.state.user = await createUser(githubToken);
-    }
+    ctx.state.githubID = githubID;
 
     await next();
 };

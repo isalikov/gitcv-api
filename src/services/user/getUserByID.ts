@@ -1,9 +1,9 @@
-import { User } from '../../types';
+import { User } from '../../types/models';
 import { UserModel } from '../../models';
 import { toResult } from '../../utils';
 
-const getUserByID = async (github_id: string): Promise<User | null> => {
-    const doc = await UserModel.findOne({ github_id });
+const getUserByID = async (githubID: string): Promise<User | null> => {
+    const doc = await UserModel.findOne({ githubID });
 
     if (!doc) {
         return null;

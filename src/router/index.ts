@@ -2,10 +2,10 @@ import Router from '@koa/router';
 
 import { authorizeBySessionToken } from '../middlewares';
 
-import ping from './ping';
+import { getAuthorizedUser } from './user';
 
 const router = new Router();
 
-router.get('/', authorizeBySessionToken, ping);
+router.get('/', authorizeBySessionToken, getAuthorizedUser);
 
 export default router;
