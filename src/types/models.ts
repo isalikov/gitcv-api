@@ -1,12 +1,5 @@
-export type Profile = {
-    time: string;
-    blocks: object[];
-};
-
 export type User = {
-    email: string | null;
+    githubID: number;
     login: string;
-    name: string;
     photo: string;
-    profile: Array<Profile>;
 };

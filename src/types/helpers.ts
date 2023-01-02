@@ -2,7 +2,7 @@ import { ParameterizedContext } from 'koa';
 
 export type AuthorizedContext = ParameterizedContext<{
     githubToken: string;
-    githubID: string;
+    githubID: number;
     userID: string;
 }>;
 

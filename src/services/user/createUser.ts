@@ -5,14 +5,11 @@ import { toResult } from '../../utils';
 
 const createUser = async (githubToken: string): Promise<User> => {
     const githubUser = await getUser(githubToken);
-    console.log(githubUser);
 
     const user = new UserModel<User>({
-        email: githubUser.email,
+        githubID: githubUser.id,
         login: githubUser.login,
-        name: githubUser.name,
         photo: githubUser.avatar_url,
-        profile: [],
     });
 
     const doc = await user.save();
