@@ -7,7 +7,7 @@ RUN yarn install && \
     yarn dist && \
     mkdir -p /usr/app/dist && \
     cp -r ./dist /usr/app/ && \
-    cp ./.npmrc /usr/app/.npmrc \
+    cp ./.npmrc /usr/app/.npmrc && \
     cp ./package.json /usr/app/package.json
 
 WORKDIR /usr/app
