@@ -3,4 +3,4 @@
 gitcv.io api layer
 
 ### Requirements
-- Node.js ^16
+- Node.js ^18
