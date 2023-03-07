@@ -1,4 +1,4 @@
-name: build_x86_64_latest
+name: build_x86_64_tag
 
 on:
   push:
