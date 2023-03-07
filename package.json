@@ -51,6 +51,7 @@
     "tabWidth": 4
   },
   "dependencies": {
+    "@isalikov/gitcv-types": "^0.0.2",
     "@koa/cors": "^3.3.0",
     "@koa/router": "^10.1.1",
     "@octokit/core": "^3.6.0",
