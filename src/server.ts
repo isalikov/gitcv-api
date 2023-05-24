@@ -1,41 +1,26 @@
-import dotenv from 'dotenv-flow';
-dotenv.config();
+import './dotenv'
 
-import Koa from 'koa';
-import morgan from 'koa-morgan';
-import cors from '@koa/cors';
+import bodyParser from 'body-parser'
+import express from 'express'
+import useragent from 'express-useragent'
 
-import router from './router';
-import mongodb from './services/mongodb';
-import redis from './services/redis';
+import morgan from 'morgan'
 
-const app = new Koa();
-const isDevelop = process.env.NODE_ENV !== 'production';
+import config from './config'
+import routes from './routes'
+
+import http from 'http'
 
 const main = async () => {
-    await redis.connect();
-    await mongodb.connect(process.env.MONGO_URL);
+    const app = express()
 
-    app.use(async (ctx, next) => {
-        try {
-            await next();
-        } catch (err) {
-            // TODO: handle error with Sentry
-            console.error(err);
+    app.use(bodyParser.json())
+    app.use(useragent.express())
+    app.use(morgan(config.isDevelop ? 'dev' : 'common'))
+    app.use(routes)
 
-            ctx.status = 500;
-            ctx.body = {
-                message: isDevelop ? err.message : 'Service Unavailable',
-            };
-        }
-    });
+    const server = http.createServer(app)
+    server.listen(config.port)
+}
 
-    app.use(cors());
-    app.use(morgan(isDevelop ? 'dev' : 'tiny'));
-    app.use(router.routes());
-
-    app.listen(process.env.PORT);
-};
-
-// TODO: handle error with Sentry
-main().catch(console.error);
+main().catch(console.error)
