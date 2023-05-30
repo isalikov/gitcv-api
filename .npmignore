@@ -1,0 +1,17 @@
+.vs_code
+.DS_Store
+.idea
+
+*.log
+*.pid
+*.pid.lock
+
+/node_modules
+
+/.github
+/.husky
+.editorconfig
+.gitignore
+tsconfig.json
+
+*.lock
