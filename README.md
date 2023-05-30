@@ -1,6 +1,6 @@
 # gitcv-api
 
-gitcv.io api layer
+gitcv.io api
 
 ### Requirements
 - Node.js ^18
