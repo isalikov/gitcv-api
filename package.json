@@ -14,8 +14,7 @@
     "dist": "tsc",
     "lint": "eslint .",
     "prepare": "husky install",
-    "start": "node ./dist/server.js",
-    "swagger": "node ./scripts/swagger.js"
+    "start": "node ./dist/server.js"
   },
   "lint-staged": {
     "*.ts": [
