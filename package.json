@@ -3,8 +3,12 @@
   "description": "gitcv.io api",
   "repository": "git@github.com:isalikov/gitcv-api.git",
   "author": "Iakov Salikov <salikovpro@gmail.com>",
+  "types": "index.d.ts",
   "license": "UNLICENSED",
   "version": "0.0.1",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "nodemon ./src/server.ts",
     "dist": "tsc",
