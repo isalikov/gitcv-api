@@ -1,6 +1,7 @@
 import './dotenv'
 
 import bodyParser from 'body-parser'
+import cors from 'cors'
 import express from 'express'
 import useragent from 'express-useragent'
 
@@ -19,6 +20,7 @@ const main = async () => {
 
     const app = express()
 
+    app.use(cors())
     app.use(bodyParser.json())
     app.use(useragent.express())
     app.use(morgan(config.isDevelop ? 'dev' : 'common'))

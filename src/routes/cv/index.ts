@@ -3,28 +3,28 @@ import { Router } from 'express'
 const router = Router()
 
 /**
- * Get document by ID
+ * Get CV by ID
  */
 router.get('/:id', (req, res) => {
     res.sendStatus(200)
 })
 
 /**
- * Create document
+ * Create CV
  */
 router.post('/', (req, res) => {
     res.sendStatus(200)
 })
 
 /**
- * Update document
+ * Update CV
  */
 router.patch('/:id', (req, res) => {
     res.sendStatus(200)
 })
 
 /**
- * Delete document
+ * Delete CV
  */
 router.delete('/:id', (req, res) => {
     res.sendStatus(200)
