@@ -97,6 +97,7 @@
   "dependencies": {
     "@editorjs/editorjs": "^2.27.0",
     "@octokit/core": "^4.2.1",
+    "axios": "^1.4.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

@@ -1,36 +1,40 @@
 import { Router } from 'express'
 
-import { getUserByUUID } from '../../services/user'
+import { getUserByUUID, syncUser } from '../../services/user'
 import { AppResponse } from '../../types'
 
 const router = Router()
 
-/**
- * Initial app state
- */
 router.get('/', async (req, res: AppResponse) => {
     try {
         const user = await getUserByUUID(res.locals)
 
         res.json(user)
     } catch (e) {
-        // TODO: handle error
+        console.error(e)
         res.sendStatus(500)
     }
 })
 
 /**
- * Update user settings
+ * Update user
  */
-router.patch('/settings', (req, res) => {
+router.patch('/', (req, res) => {
     res.sendStatus(200)
 })
 
 /**
  * Sync user's GitHub profile
  */
-router.post('/sync', (req, res) => {
-    res.sendStatus(200)
+router.post('/sync', async (req, res: AppResponse) => {
+    try {
+        const user = await syncUser(res.locals)
+
+        res.json(user)
+    } catch (e) {
+        console.error(e)
+        res.sendStatus(500)
+    }
 })
 
 export default router
