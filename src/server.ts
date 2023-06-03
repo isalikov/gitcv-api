@@ -22,20 +22,22 @@ const main = async () => {
 
     const app = express()
 
-    app.use(
-        limiter({
-            windowMs: 60 * 1000, // 1 min
-            max: 30,
-            standardHeaders: false,
-            legacyHeaders: false,
-        }),
-    )
+    if (!config.isDevelop) {
+        app.use(
+            limiter({
+                windowMs: 60 * 1000, // 1 min
+                max: 30,
+                standardHeaders: false,
+                legacyHeaders: false,
+            }),
+        )
+    }
 
     app.use(cors())
+    app.use(morgan(config.isDevelop ? 'dev' : 'common'))
     app.use(Authorize)
     app.use(bodyParser.json())
     app.use(useragent.express())
-    app.use(morgan(config.isDevelop ? 'dev' : 'common'))
     app.use(routes)
 
     const server = http.createServer(app)

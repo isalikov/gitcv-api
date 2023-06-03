@@ -4,5 +4,5 @@ import cvSchema from './schemas/cvSchema'
 import userSchema from './schemas/userSchema'
 import { MongooseCV, MongooseUser } from '../types'
 
-export const CVModel = model<MongooseCV, Model<MongooseCV>>('User', cvSchema)
+export const CVModel = model<MongooseCV, Model<MongooseCV>>('CV', cvSchema)
 export const UserModel = model<MongooseUser, Model<MongooseUser>>('User', userSchema)

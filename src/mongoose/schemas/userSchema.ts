@@ -14,7 +14,7 @@ export default new Schema<MongooseUser>(
         projects: { type: [projectSchema], default: [] },
         settings: { type: settingsSchema, default: defaultSettings },
         spokenSkills: { type: [spokenSkillSchema], default: [] },
-        uuid: { type: String, required: true },
+        uuid: { type: String, required: true, index: true, unique: true },
     },
     { timestamps: true },
 )

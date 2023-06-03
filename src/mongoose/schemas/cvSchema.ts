@@ -13,9 +13,9 @@ export default new Schema<MongooseCV>(
         photo: { type: String },
         projects: { type: String },
         skills: { type: String },
-        tag: { type: String, required: true },
+        tag: { type: String, required: true, index: true, unique: true },
         title: { type: String, required: true },
-        uuid: { type: String, required: true },
+        uuid: { type: String, required: true, index: true },
     },
     { timestamps: true },
 )

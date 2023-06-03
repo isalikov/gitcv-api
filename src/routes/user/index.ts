@@ -1,12 +1,22 @@
 import { Router } from 'express'
 
+import { getUserByUUID } from '../../services/user'
+import { AppResponse } from '../../types'
+
 const router = Router()
 
 /**
  * Initial app state
  */
-router.get('/', (req, res) => {
-    res.sendStatus(200)
+router.get('/', async (req, res: AppResponse) => {
+    try {
+        const user = await getUserByUUID(res.locals)
+
+        res.json(user)
+    } catch (e) {
+        // TODO: handle error
+        res.sendStatus(500)
+    }
 })
 
 /**
