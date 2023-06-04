@@ -1,5 +1,3 @@
-import * as dotenv from 'dotenv'
-
 const getPath = (): string => {
     if (process.env.NODE_ENV !== 'production') {
         return '.env.local'
@@ -8,4 +6,5 @@ const getPath = (): string => {
     return '.env'
 }
 
-dotenv.config({ path: getPath() })
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: getPath() })
