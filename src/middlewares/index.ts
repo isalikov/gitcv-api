@@ -1,2 +1,4 @@
-export { default as Authorize } from './Authorize'
-export { default as NotFound } from './NotFound'
+export { default as authorize } from './authorize'
+export { default as generateNewEntity } from './generateNewEntity'
+export { default as getCurrentUser } from './getCurrentUser'
+export { default as syncCurrentUser } from './syncCurrentUser'

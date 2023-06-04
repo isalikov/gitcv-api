@@ -1,5 +1,7 @@
 import './dotenv'
 
+import 'reflect-metadata'
+
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
@@ -9,16 +11,16 @@ import useragent from 'express-useragent'
 import morgan from 'morgan'
 
 import config from './config'
-import mongodb from './connectors/mongodb'
 import redis from './connectors/redis'
-import { Authorize } from './middlewares'
+import dataSource from './data-source'
+import { authorize } from './middlewares'
 import routes from './routes'
 
 import http from 'http'
 
 const main = async () => {
     await redis.connect()
-    await mongodb.connect(config.mongoURL)
+    await dataSource.initialize()
 
     const app = express()
 
@@ -35,13 +37,13 @@ const main = async () => {
 
     app.use(cors())
     app.use(morgan(config.isDevelop ? 'dev' : 'common'))
-    app.use(Authorize)
+    app.use(authorize)
     app.use(bodyParser.json())
     app.use(useragent.express())
     app.use(routes)
 
     const server = http.createServer(app)
-    server.listen(config.port)
+    server.listen(config.PORT)
 }
 
 main().catch(console.error)

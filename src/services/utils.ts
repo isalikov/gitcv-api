@@ -19,7 +19,5 @@ export const getPagedQuery = (total: number, limit = 100): PagedQuery[] => {
         }
     })
 
-    console.log(length, result)
-
     return [...result, { page: result.length + 1, per_page: total - limit * length }]
 }

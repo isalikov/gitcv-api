@@ -3,7 +3,7 @@ import { createClient } from 'redis'
 import config from '../config'
 
 const client = createClient({
-    url: config.redisURL,
+    url: config.REDIS_URL,
 })
 
 client.on('error', (err) => console.error('Redis Client:: Error', err))

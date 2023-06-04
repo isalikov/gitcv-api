@@ -5,32 +5,38 @@ import httpStatus from 'http-status'
 import redis from '../connectors/redis'
 import { AppHeaders, AppResponse } from '../types'
 
-const Authorize = async (req: Request, res: AppResponse, next: NextFunction) => {
+const authorize = async (req: Request, res: AppResponse, next: NextFunction) => {
     const { session } = req.headers as AppHeaders
 
     if (!session) {
-        return res.sendStatus(httpStatus.UNAUTHORIZED)
+        res.sendStatus(httpStatus.UNAUTHORIZED)
+
+        return
     }
 
     const data = await redis.hGetAll(session as never)
 
     if (!data) {
-        return res.sendStatus(httpStatus.UNAUTHORIZED)
+        res.sendStatus(httpStatus.UNAUTHORIZED)
+
+        return
     }
 
     const [githubID] = Object.keys(data)
     const githubToken = data[githubID]
 
     if (!githubID || !githubToken) {
-        return res.sendStatus(httpStatus.FORBIDDEN)
+        res.sendStatus(httpStatus.FORBIDDEN)
+
+        return
     }
 
     res.locals = {
-        githubID,
+        githubID: parseInt(githubID, 10),
         githubToken,
     }
 
     next()
 }
 
-export default Authorize
+export default authorize
