@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm'
 
-import { v4 as uuidV4 } from 'uuid'
+import { v1 as uuidV1, v4 as uuidV4 } from 'uuid'
 
 import { OpenAIController } from './OpenAIController'
 import { UserController } from './UserController'
@@ -27,10 +27,12 @@ export class CVController {
         const user = await this.userController.getUser()
         const about = await this.openAIController.getAboutText(user, repos)
 
+        const cvtag = uuidV1()
         const uuid = uuidV4()
 
         await this.repository.insert({
             about,
+            cvtag,
             user,
             uuid,
             name: user.name,

@@ -28,13 +28,13 @@ export class CVEntity {
     @Column({ nullable: true })
     photo: string
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, type: 'text' })
     about: string
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, type: 'text' })
     education: string
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, type: 'text' })
     history: string
 
     @ManyToOne(() => UserEntity, (user) => user)
