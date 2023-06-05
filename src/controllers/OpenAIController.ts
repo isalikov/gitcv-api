@@ -28,7 +28,8 @@ export class OpenAIController {
         return `
         -------------------------------------------------------------------
         # ${index} ${repo.name}
-        This project is a github repository written at ${language} language.
+        This project is a github repository written at next languages:
+        ${language.map((lang) => lang.title).join('\n -')}
 
         Description: ${repo.about}
 
