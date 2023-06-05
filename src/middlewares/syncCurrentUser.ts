@@ -1,11 +1,9 @@
-import UserController from '../controllers/UserController'
+import { UserController } from '../controllers'
 import { AppRequest, AppResponse } from '../types'
 
 const syncCurrentUser = async (req: AppRequest, res: AppResponse) => {
     const userController = new UserController(res.locals)
-
-    await userController.sync()
-    const user = await userController.getUser()
+    const user = await userController.sync()
 
     res.json(user)
 }

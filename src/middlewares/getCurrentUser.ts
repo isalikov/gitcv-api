@@ -1,4 +1,4 @@
-import UserController from '../controllers/UserController'
+import { UserController } from '../controllers'
 import { AppRequest, AppResponse } from '../types'
 
 const getCurrentUser = async (req: AppRequest, res: AppResponse) => {

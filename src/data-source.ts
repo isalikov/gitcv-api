@@ -1,9 +1,7 @@
 import { DataSource } from 'typeorm'
 
 import config from './config'
-import Entity from './entities/Entity'
-import Repo from './entities/Repo'
-import User from './entities/User'
+import { CVEntity, RepoEntity, UserEntity } from './entities'
 
 export const dataSource = new DataSource({
     type: 'postgres',
@@ -14,7 +12,7 @@ export const dataSource = new DataSource({
     database: config.POSTGRES_DB,
     synchronize: true,
     logging: config.isDevelop,
-    entities: [Entity, Repo, User],
+    entities: [CVEntity, RepoEntity, UserEntity],
     subscribers: [],
     migrations: [],
 })
