@@ -23,7 +23,7 @@ export class OpenAIController {
     }
 
     private getProject(repo: Repo, index: number): string {
-        const language = repo.technologies.sort((a, b) => a.involvement - b.involvement)
+        const language = repo.technologies.sort((a, b) => b.involvement - a.involvement)
 
         return `
         -------------------------------------------------------------------
@@ -47,7 +47,7 @@ export class OpenAIController {
 
     public async getAboutText(user: User, repos: number[]): Promise<string> {
         const text = `
-            Generate "about section" for CV.
+            Generate "about section" for CV (2000 symbols limit)
             This CV should be in Markdown.
             Use next data parsed from github account:
 
