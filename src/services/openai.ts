@@ -49,12 +49,14 @@ export const getProjects = (user: User, repos: number[]): string => {
     return projects.map(getProject).join('\n')
 }
 
-export const generateCV = async (user: User, repos: number[]): Promise<OpenAIBody> => {
+export const generateCV = async (user: User, repos: number[], respective?: string): Promise<string> => {
     const text = `
-        Generate CV for software engineer using next description parsed from github account:
+        Generate "about section" for CV.
+        This CV should be in Markdown.
+        Use next data parsed from github account:
 
-        Name: ${user.name}
         Position: ${user.position}
+        ${respective ? 'About: \n' + respective : ''}
         ${getSpokenSkills(user)}
 
         Projects:
@@ -65,5 +67,7 @@ export const generateCV = async (user: User, repos: number[]): Promise<OpenAIBod
         headers,
     })
 
-    return data
+    const [result] = data.choices
+
+    return result.message.content
 }

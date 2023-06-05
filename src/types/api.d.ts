@@ -16,11 +16,16 @@ export type Locals = {
 }
 
 export type OpenAIChoice = {
-    message: string
+    message: {
+        role: string
+        content: string
+        finish_reason: string
+        index: number
+    }
 }
 
 export type OpenAIBody = {
-    choices: OpenAIChoice
+    choices: OpenAIChoice[]
 }
 
 export type AppResponse<B = Record<string, unknown>> = Response<B, Locals>
@@ -28,4 +33,5 @@ export type AppRequest<B = Record<string, unknown>> = Request<core.ParamsDiction
 
 export type GenerateEntityBody = {
     repos: number[]
+    respective?: string
 }

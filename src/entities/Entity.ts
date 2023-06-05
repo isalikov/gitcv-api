@@ -20,19 +20,19 @@ export default class Entity {
     @Column()
     githubID: number
 
-    @Column()
+    @Column({ nullable: true })
     location?: string
 
-    @Column()
+    @Column({ nullable: true })
     photo?: string
 
-    @Column({ type: 'json' })
+    @Column({ type: 'json', nullable: true })
     about?: OutputData
 
-    @Column({ type: 'json' })
+    @Column({ type: 'json', nullable: true })
     education?: OutputData
 
-    @Column({ type: 'json' })
+    @Column({ type: 'json', nullable: true })
     history?: OutputData
 
     @ManyToOne(() => User, (user) => user.entities)

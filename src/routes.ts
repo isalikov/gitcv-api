@@ -8,7 +8,7 @@ const router = Router()
 
 router.get('/user', getCurrentUser)
 router.post('/user/sync', syncCurrentUser)
-router.patch('/entity/generate', generateNewEntity)
+router.post('/entity/generate', generateNewEntity)
 
 router.use('*', (req, res) => {
     res.sendStatus(httpStatus.NOT_FOUND)
