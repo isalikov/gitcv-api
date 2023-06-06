@@ -2,7 +2,7 @@ import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm'
 
 import { UserEntity } from './UserEntity'
 
-import { Technology } from '../types'
+import { Skill } from '../types'
 
 @Entity({ name: 'repositories' })
 export class RepoEntity {
@@ -10,7 +10,7 @@ export class RepoEntity {
     id: number
 
     @Column({ type: 'json', default: [] })
-    stack: Technology[]
+    stack: Skill[]
 
     @Column()
     title: string

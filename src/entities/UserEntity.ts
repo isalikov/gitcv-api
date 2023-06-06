@@ -4,7 +4,7 @@ import { CvEntity } from './CvEntity'
 import { EducationEntity } from './EducationEntity'
 import { EmployerEntity } from './EmployerEntity'
 import { RepoEntity } from './RepoEntity'
-import { Language, Project, Technology } from '../types'
+import { Language, Project, Skill } from '../types'
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -36,7 +36,7 @@ export class UserEntity {
     position: string
 
     @Column({ type: 'json', default: [] })
-    skills: Technology[]
+    skills: Skill[]
 
     @OneToMany(() => EducationEntity, ({ user }) => user)
     education: EducationEntity[]

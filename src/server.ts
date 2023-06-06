@@ -36,9 +36,10 @@ const main = async () => {
     }
 
     app.use(cors())
+    app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({ extended: false }))
     app.use(morgan(config.isDevelop ? 'dev' : 'common'))
     app.use(authorize)
-    app.use(bodyParser.json())
     app.use(useragent.express())
     app.use(routes)
 

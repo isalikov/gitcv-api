@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Index } from 'typeorm'
 
 import { UserEntity } from './UserEntity'
-import { Education, Employer, Language, Project, Technology } from '../types'
+import { Education, Employer, Language, Project, Skill } from '../types'
 
 @Entity({ name: 'cvs' })
 export class CvEntity {
@@ -46,7 +46,7 @@ export class CvEntity {
     projects: Project[]
 
     @Column({ type: 'json', default: [] })
-    skills: Technology[]
+    skills: Skill[]
 
     @Column({ nullable: true })
     photo: string

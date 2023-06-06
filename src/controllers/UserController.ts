@@ -4,7 +4,7 @@ import { OctokitController } from './OctokitController'
 import { RepoController } from './RepoController'
 import dataSource from '../data-source'
 import { UserEntity } from '../entities'
-import { User, Locals } from '../types'
+import { User, Locals, UpdateUserBody } from '../types'
 import { unixTimestamp } from '../utils'
 
 export class UserController {
@@ -56,6 +56,20 @@ export class UserController {
         })
 
         await this.repositoryController.sync(user)
+    }
+
+    public async update(body: Partial<UpdateUserBody>): Promise<User> {
+        const timestamp = unixTimestamp()
+
+        await this.repository.update(
+            { id: this.githubID },
+            {
+                ...body,
+                updatedAt: timestamp,
+            },
+        )
+
+        return this.getUser()
     }
 
     public async sync(): Promise<User> {

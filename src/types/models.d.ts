@@ -8,14 +8,14 @@ export type DatePoint = {
     year: string
 }
 
-export type Technology = {
+export type Skill = {
     involvement: number
     title: string
 }
 
 export type Repo = {
     id: number
-    stack: Technology[]
+    stack: Skill[]
     title: string
     createdAt: number
     updatedAt: number
@@ -48,9 +48,9 @@ export type Project = {
     uuid: string
     description: string
     title: string
-    stack: Technology[]
-    demo?: string
-    source?: string
+    stack: Skill[]
+    demoURL?: string
+    sourceURL?: string
 }
 
 export type Cv = {
@@ -67,7 +67,7 @@ export type Cv = {
     position: string
     profile: string
     projects: Project[]
-    skills: Technology[]
+    skills: Skill[]
     createdAt: number
     updatedAt: number
     photo?: string
@@ -87,7 +87,7 @@ export type User = {
     projects: Project[]
     position: string
     repos: Repo[]
-    skills: Technology[]
+    skills: Skill[]
     createdAt: number
     updatedAt: number
 }

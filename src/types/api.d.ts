@@ -2,6 +2,7 @@ import { Response, Request } from 'express'
 
 import * as core from 'express-serve-static-core'
 
+import { Cv, User } from './models'
 import { IncomingHttpHeaders } from 'http'
 
 export type Headers = {
@@ -29,9 +30,16 @@ export type OpenAIBody = {
 }
 
 export type AppResponse<B = Record<string, unknown>> = Response<B, Locals>
-export type AppRequest<B = Record<string, unknown>> = Request<core.ParamsDictionary, any, B>
+export type AppRequest<B = Record<string, unknown>> = Request<core.ParamsDictionary, never, B>
 
-export type GenerateEntityBody = {
+export type GenerateCvBody = {
     repos: number[]
     title: string
 }
+
+export type UpdateUserBody = Pick<
+    User,
+    'contacts' | 'languages' | 'name' | 'photo' | 'profile' | 'projects' | 'position' | 'skills'
+>
+
+export type UpdateCvBody = Omit<Cv, 'id' | 'tag' | 'isVerified' | 'createdAt' | 'updatedAt'>
