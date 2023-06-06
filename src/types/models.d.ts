@@ -1,6 +1,11 @@
 export type Language = {
+    level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' | 'beginner' | 'native'
     title: string
-    level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' | 'native'
+}
+
+export type DatePoint = {
+    month: string
+    year: string
 }
 
 export type Technology = {
@@ -9,34 +14,80 @@ export type Technology = {
 }
 
 export type Repo = {
-    githubID: number
-    name: string
-    technologies: Technology[]
+    id: number
+    stack: Technology[]
+    title: string
+    createdAt: number
+    updatedAt: number
     about?: string
     readme?: string
 }
 
-export type Cv = {
+export type Employer = {
+    id: number
     name: string
     position: string
-    uuid: string
-    cvtag: string
-    githubID: number
-    about?: string
-    education?: string
-    history?: string
+    description?: string
+    from?: DatePoint
+    to?: DatePoint
     location?: string
+    website?: string
+}
+
+export type Education = {
+    id: number
+    name: string
+    faculty: string
+    specialization: string
+    from?: DatePoint
+    to?: DatePoint
+    location?: string
+}
+
+export type Project = {
+    uuid: string
+    description: string
+    title: string
+    stack: Technology[]
+    demo?: string
+    source?: string
+}
+
+export type Cv = {
+    id: number
+    tag: string
+    title: string
+    isVerified: boolean
+    isVisible: boolean
+    education: Education[]
+    employers: Employer[]
+    languages: Language[]
+    location: string
+    name: string
+    position: string
+    profile: string
+    projects: Project[]
+    skills: Technology[]
+    createdAt: number
+    updatedAt: number
     photo?: string
 }
 
 export type User = {
-    languages: Language[]
-    repos: Repo[]
-    githubID: number
-    githubLogin: string
+    id: number
+    login: string
+    contacts: Record<string, string>
     cvs: Cv[]
-    about?: string
-    name?: string
-    photo?: string
-    position?: string
+    education: Education[]
+    employers: Employer[]
+    languages: Language[]
+    name: string
+    photo: string
+    profile: string
+    projects: Project[]
+    position: string
+    repos: Repo[]
+    skills: Technology[]
+    createdAt: number
+    updatedAt: number
 }

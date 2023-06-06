@@ -33,5 +33,5 @@ export type AppRequest<B = Record<string, unknown>> = Request<core.ParamsDiction
 
 export type GenerateEntityBody = {
     repos: number[]
-    respective?: string
+    title: string
 }

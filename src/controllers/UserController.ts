@@ -5,6 +5,7 @@ import { RepoController } from './RepoController'
 import dataSource from '../data-source'
 import { UserEntity } from '../entities'
 import { User, Locals } from '../types'
+import { unixTimestamp } from '../utils'
 
 export class UserController {
     private readonly githubID: number
@@ -25,7 +26,7 @@ export class UserController {
 
     public async getUser(): Promise<User> {
         const user = await this.repository.findOne({
-            where: { githubID: this.githubID },
+            where: { id: this.githubID },
             relations: {
                 cvs: true,
                 repos: true,
@@ -41,39 +42,46 @@ export class UserController {
     }
 
     public async create(): Promise<void> {
-        const githubUser = await this.octokitController.getGithubUser()
+        const { login, name, avatar_url, bio } = await this.octokitController.getGithubUser()
+
+        const timestamp = unixTimestamp()
 
         await this.repository.insert({
-            githubID: this.githubID,
-            githubLogin: githubUser.login,
-            name: githubUser.name,
-            photo: githubUser.avatar_url,
-            position: githubUser.bio,
+            login,
+            name,
+            id: this.githubID,
+            photo: avatar_url,
+            position: bio,
+            createdAt: timestamp,
+            updatedAt: timestamp,
         })
 
         const user = await this.repository.findOne({
-            where: { githubID: this.githubID },
+            where: { id: this.githubID },
         })
 
         await this.repositoryController.sync(user)
     }
 
     public async sync(): Promise<User> {
-        const githubUser = await this.octokitController.getGithubUser()
+        const { login, name, avatar_url, bio } = await this.octokitController.getGithubUser()
+
+        const timestamp = unixTimestamp()
 
         await this.repository.update(
-            { githubID: this.githubID },
+            { id: this.githubID },
             {
-                githubID: this.githubID,
-                githubLogin: githubUser.login,
-                name: githubUser.name,
-                photo: githubUser.avatar_url,
-                position: githubUser.bio,
+                login,
+                name,
+                id: this.githubID,
+                photo: avatar_url,
+                position: bio,
+                updatedAt: timestamp,
             },
         )
 
         const user = await this.repository.findOne({
-            where: { githubID: this.githubID },
+            where: { id: this.githubID },
         })
 
         await this.repositoryController.sync(user)

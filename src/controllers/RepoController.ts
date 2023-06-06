@@ -4,6 +4,7 @@ import { OctokitController } from './OctokitController'
 import dataSource from '../data-source'
 import { RepoEntity, UserEntity } from '../entities'
 import { GithubRepo, Repo, Locals } from '../types'
+import { unixTimestamp } from '../utils'
 
 export class RepoController {
     private repository: Repository<RepoEntity>
@@ -18,15 +19,19 @@ export class RepoController {
         const languages = await this.octokitController.getGithubRepoLanguages(repo)
         const readme = await this.octokitController.getGithubRepoReadme(repo)
 
+        const timestamp = unixTimestamp()
+
         return {
-            readme,
-            githubID: repo.id,
+            id: repo.id,
+            title: repo.name,
             about: repo.description,
-            name: repo.name,
-            technologies: Object.keys(languages).map((title) => ({
+            readme,
+            stack: Object.keys(languages).map((title) => ({
                 title,
                 involvement: languages[title],
             })),
+            createdAt: timestamp,
+            updatedAt: timestamp,
         }
     }
 

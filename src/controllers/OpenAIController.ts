@@ -23,11 +23,11 @@ export class OpenAIController {
     }
 
     private getProject(repo: Repo, index: number): string {
-        const language = repo.technologies.sort((a, b) => b.involvement - a.involvement)
+        const language = repo.stack.sort((a, b) => b.involvement - a.involvement)
 
         return `
         -------------------------------------------------------------------
-        # ${index} ${repo.name}
+        # ${index} ${repo.title}
         This project is a github repository written at next languages:
         ${language.map((lang) => lang.title).join('\n -')}
 
@@ -40,13 +40,13 @@ export class OpenAIController {
 
     private getProjects(user: User, repos: number[]): string {
         const projects = user.repos.filter((repo) => {
-            return repos.findIndex((githubID) => repo.githubID === githubID) > -1
+            return repos.findIndex((id) => repo.id === id) > -1
         })
 
         return projects.map(this.getProject).join('\n')
     }
 
-    public async getAboutText(user: User, repos: number[]): Promise<string> {
+    public async getProfileText(user: User, repos: number[]): Promise<string> {
         const text = `
             Generate "about section" for CV (2000 symbols limit)
             This CV should be in Markdown.

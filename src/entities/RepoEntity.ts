@@ -9,21 +9,24 @@ export class RepoEntity {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
-    name: string
-
-    @Column()
-    githubID: number
-
     @Column({ type: 'json', default: [] })
-    technologies: Technology[]
+    stack: Technology[]
+
+    @Column()
+    title: string
 
     @Column({ nullable: true })
-    about?: string
+    about: string
 
     @Column({ nullable: true })
-    readme?: string
+    readme: string
 
     @ManyToOne(() => UserEntity, (user) => user.repos)
     user: UserEntity
+
+    @Column()
+    createdAt: number
+
+    @Column()
+    updatedAt: number
 }

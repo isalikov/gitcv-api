@@ -1,38 +1,58 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 
-import { CVEntity } from './CVEntity'
+import { CvEntity } from './CvEntity'
+import { EducationEntity } from './EducationEntity'
+import { EmployerEntity } from './EmployerEntity'
 import { RepoEntity } from './RepoEntity'
-import { Language } from '../types'
+import { Language, Project, Technology } from '../types'
 
 @Entity({ name: 'users' })
 export class UserEntity {
     @PrimaryGeneratedColumn()
     id: number
 
+    @Column()
+    login: string
+
+    @Column({ type: 'json', default: {} })
+    contacts: Record<string, string>
+
     @Column({ type: 'json', default: [] })
     languages: Language[]
 
-    @Column({ unique: true })
-    githubID: number
+    @Column({ default: '' })
+    name: string
 
-    @Column({ unique: true })
-    githubLogin: string
+    @Column()
+    photo: string
 
-    @Column({ nullable: true })
-    about?: string
+    @Column({ type: 'text', default: '' })
+    profile: string
 
-    @Column({ nullable: true })
-    name?: string
+    @Column({ type: 'json', default: [] })
+    projects: Project[]
 
-    @Column({ nullable: true })
-    photo?: string
+    @Column({ default: '' })
+    position: string
 
-    @Column({ nullable: true })
-    position?: string
+    @Column({ type: 'json', default: [] })
+    skills: Technology[]
+
+    @OneToMany(() => EducationEntity, ({ user }) => user)
+    education: EducationEntity[]
+
+    @OneToMany(() => EmployerEntity, ({ user }) => user)
+    employers: EmployerEntity[]
 
     @OneToMany(() => RepoEntity, ({ user }) => user)
     repos: RepoEntity[]
 
-    @OneToMany(() => CVEntity, ({ user }) => user)
-    cvs: CVEntity[]
+    @OneToMany(() => CvEntity, ({ user }) => user)
+    cvs: CvEntity[]
+
+    @Column()
+    createdAt: number
+
+    @Column()
+    updatedAt: number
 }

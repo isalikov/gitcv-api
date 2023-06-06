@@ -1,3 +1,5 @@
-export * from './CVEntity'
+export * from './CvEntity'
+export * from './EducationEntity'
+export * from './EmployerEntity'
 export * from './RepoEntity'
 export * from './UserEntity'

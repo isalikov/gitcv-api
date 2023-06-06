@@ -1,9 +1,10 @@
-import { CVController } from '../controllers'
+import { CvController } from '../controllers'
 import { AppRequest, AppResponse, GenerateEntityBody } from '../types'
 
 const createCv = async (req: AppRequest<GenerateEntityBody>, res: AppResponse) => {
-    const cvController = new CVController(res.locals)
-    const cv = await cvController.create(req.body.repos)
+    const { repos, title } = req.body
+    const cvController = new CvController(res.locals)
+    const cv = await cvController.create(title, repos)
 
     res.json(cv)
 }
