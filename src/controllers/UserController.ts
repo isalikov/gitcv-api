@@ -24,21 +24,16 @@ export class UserController {
         this.repositoryController = new RepoController(locals)
     }
 
-    public async getUser(): Promise<User> {
-        const user = await this.repository.findOne({
+    public async getUser(): Promise<User | null> {
+        return this.repository.findOne({
             where: { id: this.githubID },
             relations: {
                 cvs: true,
+                education: true,
+                employers: true,
                 repos: true,
             },
         })
-
-        if (!user) {
-            await this.create()
-            return this.getUser()
-        }
-
-        return user
     }
 
     public async create(): Promise<void> {

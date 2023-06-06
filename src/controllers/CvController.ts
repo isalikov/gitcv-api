@@ -33,6 +33,7 @@ export class CvController {
             tag,
             title,
             profile,
+            user,
             name: user.name,
             position: user.position,
             photo: user.photo,

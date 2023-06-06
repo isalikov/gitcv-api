@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
+import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm'
 
 import { UserEntity } from './UserEntity'
 
@@ -6,7 +6,7 @@ import { Technology } from '../types'
 
 @Entity({ name: 'repositories' })
 export class RepoEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     id: number
 
     @Column({ type: 'json', default: [] })

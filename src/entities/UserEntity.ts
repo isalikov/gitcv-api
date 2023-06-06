@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm'
 
 import { CvEntity } from './CvEntity'
 import { EducationEntity } from './EducationEntity'
@@ -8,7 +8,7 @@ import { Language, Project, Technology } from '../types'
 
 @Entity({ name: 'users' })
 export class UserEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     id: number
 
     @Column()

@@ -26,6 +26,6 @@ export class EducationEntity {
     @Column({ nullable: true })
     location: string
 
-    @ManyToOne(() => UserEntity, (user) => user.repos)
+    @ManyToOne(() => UserEntity, (user) => user.education)
     user: UserEntity
 }

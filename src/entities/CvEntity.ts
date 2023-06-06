@@ -30,7 +30,7 @@ export class CvEntity {
     @Column({ type: 'json', default: [] })
     languages: Language[]
 
-    @Column()
+    @Column({ nullable: true })
     location: string
 
     @Column()
@@ -51,7 +51,7 @@ export class CvEntity {
     @Column({ nullable: true })
     photo: string
 
-    @ManyToOne(() => UserEntity, (user) => user)
+    @ManyToOne(() => UserEntity, (user) => user.cvs)
     user: UserEntity
 
     @Column()

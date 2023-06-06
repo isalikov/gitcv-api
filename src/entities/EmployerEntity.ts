@@ -29,6 +29,6 @@ export class EmployerEntity {
     @Column({ nullable: true })
     website: string
 
-    @ManyToOne(() => UserEntity, (user) => user.repos)
+    @ManyToOne(() => UserEntity, (user) => user.employers)
     user: UserEntity
 }

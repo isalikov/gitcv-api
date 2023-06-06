@@ -1,7 +1,5 @@
-import randomWords from 'random-words'
+import random from 'random-words'
 
-export const getTag = (p: string): string => `${p}-${randomWords({ join: '-', exactly: 3 })}`
-
-console.log(getTag('123'))
+export const getTag = (p: string): string => `${p}-${random({ join: '-', exactly: 3 })}`
 
 export const unixTimestamp = (): number => Math.floor(Date.now() / 1000)
