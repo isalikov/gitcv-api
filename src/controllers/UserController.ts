@@ -4,8 +4,8 @@ import { OctokitController } from './OctokitController'
 import { RepoController } from './RepoController'
 import dataSource from '../data-source'
 import { UserEntity } from '../entities'
-import { User, Locals, UpdateUserBody } from '../types'
-import { unixTimestamp } from '../utils'
+import { User, Locals, UpdateUserBody, Skill, Project, Language } from '../types'
+import { getUniqueItems, unixTimestamp } from '../utils'
 
 export class UserController {
     private readonly githubID: number
@@ -22,6 +22,12 @@ export class UserController {
 
         this.octokitController = new OctokitController(locals.githubToken)
         this.repositoryController = new RepoController(locals)
+    }
+
+    public async getUserEntity(): Promise<UserEntity | null> {
+        return this.repository.findOne({
+            where: { id: this.githubID },
+        })
     }
 
     public async getUser(): Promise<User | null> {
@@ -51,20 +57,27 @@ export class UserController {
             updatedAt: timestamp,
         })
 
-        const user = await this.repository.findOne({
-            where: { id: this.githubID },
-        })
+        const user = await this.getUserEntity()
 
-        await this.repositoryController.sync(user)
+        if (user) {
+            await this.repositoryController.sync(user)
+        }
     }
 
     public async update(body: Partial<UpdateUserBody>): Promise<User> {
         const timestamp = unixTimestamp()
 
+        const languages = getUniqueItems<Language>(body.languages)
+        const projects = getUniqueItems<Project>(body.projects)
+        const skills = getUniqueItems<Skill>(body.skills)
+
         await this.repository.update(
             { id: this.githubID },
             {
                 ...body,
+                languages,
+                projects,
+                skills,
                 updatedAt: timestamp,
             },
         )
@@ -89,11 +102,10 @@ export class UserController {
             },
         )
 
-        const user = await this.repository.findOne({
-            where: { id: this.githubID },
-        })
-
-        await this.repositoryController.sync(user)
+        const user = await this.getUserEntity()
+        if (user) {
+            await this.repositoryController.sync(user)
+        }
 
         return this.getUser()
     }

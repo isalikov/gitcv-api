@@ -15,7 +15,7 @@ export class RepoController {
         this.octokitController = new OctokitController(locals.githubToken)
     }
 
-    private async fill(repo: GithubRepo): Promise<Repo> {
+    private async extractRepo(repo: GithubRepo): Promise<Repo> {
         const languages = await this.octokitController.getGithubRepoLanguages(repo)
         const readme = await this.octokitController.getGithubRepoReadme(repo)
 
@@ -35,16 +35,17 @@ export class RepoController {
         }
     }
 
-    private async getRepos(): Promise<Repo[]> {
+    private async parseRepos(): Promise<Repo[]> {
         const user = await this.octokitController.getGithubUser()
         const repos = await this.octokitController.getGithubRepos(user.public_repos)
 
-        return Promise.all(repos.map(async (repo) => this.fill(repo)))
+        // TODO: should be optimized to smart queue
+        return Promise.all(repos.map(async (repo) => this.extractRepo(repo)))
     }
 
     public async sync(user: UserEntity): Promise<void> {
         await this.repository.delete({ user })
-        const repos = await this.getRepos()
+        const repos = await this.parseRepos()
 
         for (const repo of repos) {
             await this.repository.insert({

@@ -21,9 +21,13 @@ const validate = <T>(req: AppRequest<T>, res: AppResponse, schema: ObjectSchema<
     return true
 }
 
+export { default as createEducationBodySchema } from './schemas/createEducationBodySchema'
+export { default as createEmployerBodySchema } from './schemas/createEmployerBodySchema'
 export { default as generateCvBodySchema } from './schemas/generateCvBodySchema'
-export { default as languageSchema } from './schemas/languageSchema'
-export { default as skillSchema } from './schemas/skillSchema'
+export { default as updateCvBodySchema } from './schemas/updateCvBodySchema'
+export { default as updateCvTagBodySchema } from './schemas/updateCvTagBodySchema'
+export { default as updateEducationSchema } from './schemas/updateEducationSchema'
+export { default as updateEmployerBodySchema } from './schemas/updateEmployerBodySchema'
 export { default as updateUserBodySchema } from './schemas/updateUserBodySchema'
 
 export default validate

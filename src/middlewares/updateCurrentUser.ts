@@ -1,6 +1,7 @@
 import httpStatus from 'http-status'
 
 import { UserController } from '../controllers'
+import handleError from '../errors'
 import { AppRequest, AppResponse, UpdateUserBody, User } from '../types'
 import validate, { updateUserBodySchema } from '../validators'
 
@@ -14,11 +15,14 @@ const updateCurrentUser = async (req: AppRequest<UpdateUserBody>, res: AppRespon
     try {
         const user = await userController.update(req.body)
 
-        res.json(user)
+        if (user) {
+            res.json(user)
+        } else {
+            // TODO: handle if user from session not found
+            res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+        }
     } catch (e) {
-        // TODO: handle error
-        console.error(e)
-        res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+        handleError(res, e)
     }
 }
 

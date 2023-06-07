@@ -1,3 +1,5 @@
+import { Timestamps, UniqueArray } from './shared'
+
 export type Language = {
     level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' | 'beginner' | 'native'
     title: string
@@ -27,6 +29,8 @@ export type Employer = {
     id: number
     name: string
     position: string
+    createdAt: number
+    updatedAt: number
     description?: string
     from?: DatePoint
     to?: DatePoint
@@ -39,6 +43,8 @@ export type Education = {
     name: string
     faculty: string
     specialization: string
+    createdAt: number
+    updatedAt: number
     from?: DatePoint
     to?: DatePoint
     location?: string
@@ -59,15 +65,15 @@ export type Cv = {
     title: string
     isVerified: boolean
     isVisible: boolean
-    education: Education[]
-    employers: Employer[]
-    languages: Language[]
+    education: UniqueArray<Omit<Education, Timestamps>>
+    employers: UniqueArray<Omit<Employer, Timestamps>>
+    languages: UniqueArray<Language>
     location: string
     name: string
     position: string
     profile: string
-    projects: Project[]
-    skills: Skill[]
+    projects: UniqueArray<Project>
+    skills: UniqueArray<Skill>
     createdAt: number
     updatedAt: number
     photo?: string
@@ -80,14 +86,14 @@ export type User = {
     cvs: Cv[]
     education: Education[]
     employers: Employer[]
-    languages: Language[]
+    languages: UniqueArray<Language>
     name: string
     photo: string
     profile: string
-    projects: Project[]
+    projects: UniqueArray<Project>
     position: string
     repos: Repo[]
-    skills: Skill[]
+    skills: UniqueArray<Skill>
     createdAt: number
     updatedAt: number
 }

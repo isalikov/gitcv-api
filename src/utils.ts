@@ -1,4 +1,7 @@
 import random from 'random-words'
+import { v4 as uuidV4 } from 'uuid'
+
+import { UniqueArray } from './types'
 
 export const getTag = (p: string): string => `${p}-${random({ join: '-', exactly: 3 })}`
 
@@ -19,3 +22,9 @@ export const omit = <T extends Record<string, unknown>, K extends string | numbe
         }
     }, {} as Omit<T, K>)
 }
+
+export const getUniqueItems = <T extends Record<string, unknown>>(array: T[] = []): UniqueArray<T> =>
+    array.map((item) => ({
+        ...item,
+        uuid: uuidV4(),
+    }))

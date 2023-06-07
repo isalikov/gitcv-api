@@ -31,4 +31,10 @@ export class EmployerEntity {
 
     @ManyToOne(() => UserEntity, (user) => user.employers)
     user: UserEntity
+
+    @Column()
+    createdAt: number
+
+    @Column()
+    updatedAt: number
 }

@@ -3,6 +3,7 @@ import { NextFunction, Request } from 'express'
 import httpStatus from 'http-status'
 
 import redis from '../connectors/redis'
+import handleError from '../errors'
 import { AppHeaders, AppResponse } from '../types'
 
 const authorize = async (req: Request, res: AppResponse, next: NextFunction) => {
@@ -39,9 +40,7 @@ const authorize = async (req: Request, res: AppResponse, next: NextFunction) => 
 
         next()
     } catch (e) {
-        // TODO: handle error
-        console.error(e)
-        res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+        handleError(res, e)
     }
 }
 

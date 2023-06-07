@@ -1,6 +1,5 @@
-import httpStatus from 'http-status'
-
 import { CvController } from '../controllers'
+import handleError from '../errors'
 import { AppRequest, AppResponse, GenerateCvBody } from '../types'
 import validate, { generateCvBodySchema } from '../validators'
 
@@ -17,9 +16,7 @@ const createCv = async (req: AppRequest<GenerateCvBody>, res: AppResponse) => {
 
         res.json(cv)
     } catch (e) {
-        // TODO: handle error
-        console.error(e)
-        res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+        handleError(res, e)
     }
 }
 
