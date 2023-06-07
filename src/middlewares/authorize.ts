@@ -28,7 +28,7 @@ const authorize = async (req: Request, res: AppResponse, next: NextFunction) => 
         const githubToken = data[githubID]
 
         if (!githubID || !githubToken) {
-            res.sendStatus(httpStatus.FORBIDDEN)
+            res.sendStatus(httpStatus.UNAUTHORIZED)
 
             return
         }
