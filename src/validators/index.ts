@@ -25,6 +25,7 @@ export { default as generateCvBodySchema } from './schemas/generateCvBodySchema'
 export { default as languageSchema } from './schemas/languageSchema'
 export { default as skillSchema } from './schemas/skillSchema'
 export { default as updateCvBodySchema } from './schemas/updateCvBodySchema'
+export { default as updateCvTagBodySchema } from './schemas/updateCvTagBodySchema'
 export { default as updateUserBodySchema } from './schemas/updateUserBodySchema'
 
 export default validate

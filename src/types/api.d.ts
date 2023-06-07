@@ -43,3 +43,7 @@ export type UpdateUserBody = Pick<
 >
 
 export type UpdateCvBody = Omit<Cv, 'id' | 'tag' | 'isVerified' | 'createdAt' | 'updatedAt'>
+
+export type UpdateCvTagBody = {
+    value: string
+}

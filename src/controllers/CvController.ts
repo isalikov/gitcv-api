@@ -4,7 +4,7 @@ import { OpenAIController } from './OpenAIController'
 import { UserController } from './UserController'
 import dataSource from '../data-source'
 import { CvEntity } from '../entities'
-import { Cv, Education, Employer, Language, Locals, Project, Skill, UpdateCvBody } from '../types'
+import { Cv, Education, Employer, Language, Locals, Project, Skill, UpdateCvBody, UpdateCvTagBody } from '../types'
 import { getTag, getUniqueItems, unixTimestamp } from '../utils'
 
 export class CvController {
@@ -67,5 +67,11 @@ export class CvController {
         )
 
         return this.getByTag(tag)
+    }
+
+    public async updateTag(tag, { value }: UpdateCvTagBody): Promise<Cv | null> {
+        await this.repository.update({ tag }, { tag: value })
+
+        return this.getByTag(value)
     }
 }
