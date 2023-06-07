@@ -11,7 +11,6 @@ const getCurrentUser = async (req: AppRequest, res: AppResponse) => {
         let user = await userController.getUser()
 
         if (!user) {
-            console.log(user)
             await userController.create()
         }
 

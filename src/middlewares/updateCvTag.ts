@@ -23,7 +23,6 @@ const updateCvTag = async (req: AppRequest<UpdateCvTagBody>, res: AppResponse) =
 
     try {
         const existCv = await controller.getByTag(value)
-        console.log(existCv)
 
         if (existCv) {
             res.sendStatus(httpStatus.CONFLICT)
