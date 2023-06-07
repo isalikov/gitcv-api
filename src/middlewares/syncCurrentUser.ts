@@ -9,7 +9,12 @@ const syncCurrentUser = async (req: AppRequest, res: AppResponse) => {
     try {
         const user = await userController.sync()
 
-        res.json(user)
+        if (user) {
+            res.json(user)
+        } else {
+            // TODO: handle if user from session not found
+            res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+        }
     } catch (e) {
         // TODO: handle error
         console.error(e)

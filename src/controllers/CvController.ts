@@ -4,8 +4,8 @@ import { OpenAIController } from './OpenAIController'
 import { UserController } from './UserController'
 import dataSource from '../data-source'
 import { CvEntity } from '../entities'
-import { Cv, Locals } from '../types'
-import { getTag, unixTimestamp } from '../utils'
+import { Cv, Education, Employer, Language, Locals, Project, Skill, UpdateCvBody } from '../types'
+import { getTag, getUniqueItems, unixTimestamp } from '../utils'
 
 export class CvController {
     private repository: Repository<CvEntity>
@@ -40,6 +40,31 @@ export class CvController {
             createdAt: timestamp,
             updatedAt: timestamp,
         })
+
+        return this.getByTag(tag)
+    }
+
+    public async update(tag: string, body: Partial<UpdateCvBody>): Promise<Cv> {
+        const timestamp = unixTimestamp()
+
+        const education = getUniqueItems<Education>(body.education)
+        const employers = getUniqueItems<Employer>(body.employers)
+        const languages = getUniqueItems<Language>(body.languages)
+        const projects = getUniqueItems<Project>(body.projects)
+        const skills = getUniqueItems<Skill>(body.skills)
+
+        await this.repository.update(
+            { tag },
+            {
+                ...body,
+                education,
+                employers,
+                languages,
+                projects,
+                skills,
+                updatedAt: timestamp,
+            },
+        )
 
         return this.getByTag(tag)
     }

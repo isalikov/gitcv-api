@@ -14,7 +14,12 @@ const updateCurrentUser = async (req: AppRequest<UpdateUserBody>, res: AppRespon
     try {
         const user = await userController.update(req.body)
 
-        res.json(user)
+        if (user) {
+            res.json(user)
+        } else {
+            // TODO: handle if user from session not found
+            res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+        }
     } catch (e) {
         // TODO: handle error
         console.error(e)

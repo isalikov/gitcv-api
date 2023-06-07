@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Index } from 'typeorm'
 
 import { UserEntity } from './UserEntity'
-import { Education, Employer, Language, Project, Skill } from '../types'
+import { Education, Employer, Language, Project, Skill, UniqueArray } from '../types'
 
 @Entity({ name: 'cvs' })
 export class CvEntity {
@@ -22,13 +22,13 @@ export class CvEntity {
     isVisible: boolean
 
     @Column({ type: 'json', default: [] })
-    education: Education[]
+    education: UniqueArray<Education>
 
     @Column({ type: 'json', default: [] })
-    employers: Employer[]
+    employers: UniqueArray<Employer>
 
     @Column({ type: 'json', default: [] })
-    languages: Language[]
+    languages: UniqueArray<Language>
 
     @Column({ nullable: true })
     location: string
@@ -43,10 +43,10 @@ export class CvEntity {
     profile: string
 
     @Column({ type: 'json', default: [] })
-    projects: Project[]
+    projects: UniqueArray<Project>
 
     @Column({ type: 'json', default: [] })
-    skills: Skill[]
+    skills: UniqueArray<Skill>
 
     @Column({ nullable: true })
     photo: string
