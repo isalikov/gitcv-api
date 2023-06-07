@@ -1,6 +1,7 @@
 import httpStatus from 'http-status'
 
 import { UserController } from '../controllers'
+import handleError from '../errors'
 import { AppRequest, AppResponse } from '../types'
 
 const getCurrentUser = async (req: AppRequest, res: AppResponse) => {
@@ -23,9 +24,7 @@ const getCurrentUser = async (req: AppRequest, res: AppResponse) => {
             res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
         }
     } catch (e) {
-        // TODO: handle error
-        console.error(e)
-        res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+        handleError(res, e)
     }
 }
 

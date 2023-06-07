@@ -1,9 +1,9 @@
 import Joi from 'joi'
 
 import datePointSchema from './datePointSchema'
-import { Employer } from '../../types'
+import { CreateEmployerBody } from '../../types'
 
-const employerSchema = Joi.object<Employer>({
+const createEmployerBodySchema = Joi.object<CreateEmployerBody>({
     name: Joi.string().required(),
     position: Joi.string().required(),
     description: Joi.string(),
@@ -13,4 +13,4 @@ const employerSchema = Joi.object<Employer>({
     website: Joi.string(),
 })
 
-export default employerSchema
+export default createEmployerBodySchema

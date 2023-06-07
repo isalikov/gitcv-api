@@ -1,6 +1,7 @@
 import httpStatus from 'http-status'
 
 import { UserController } from '../controllers'
+import handleError from '../errors'
 import { AppRequest, AppResponse, UpdateUserBody, User } from '../types'
 import validate, { updateUserBodySchema } from '../validators'
 
@@ -21,9 +22,7 @@ const updateCurrentUser = async (req: AppRequest<UpdateUserBody>, res: AppRespon
             res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
         }
     } catch (e) {
-        // TODO: handle error
-        console.error(e)
-        res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+        handleError(res, e)
     }
 }
 

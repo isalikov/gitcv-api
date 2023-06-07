@@ -6,3 +6,5 @@ export type PagedQuery = {
 }
 
 export type UniqueArray<T extends Record<string, unknown>> = Array<T & { uuid: string }>
+
+export type Timestamps = 'createdAt' | 'updatedAt'

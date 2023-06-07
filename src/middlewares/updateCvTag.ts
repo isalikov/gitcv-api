@@ -1,6 +1,7 @@
 import httpStatus from 'http-status'
 
 import { CvController } from '../controllers'
+import handleError from '../errors'
 import { AppRequest, AppResponse, UpdateCvTagBody } from '../types'
 import validate, { updateCvTagBodySchema } from '../validators'
 
@@ -32,15 +33,9 @@ const updateCvTag = async (req: AppRequest<UpdateCvTagBody>, res: AppResponse) =
 
         const cv = await controller.updateTag(tag, req.body)
 
-        if (cv) {
-            res.json(cv)
-        } else {
-            res.sendStatus(httpStatus.NOT_FOUND)
-        }
+        res.json(cv)
     } catch (e) {
-        // TODO: handle error
-        console.error(e)
-        res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR)
+        handleError(res, e)
     }
 }
 

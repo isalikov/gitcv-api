@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
-import educationSchema from './educationSchema'
-import employerSchema from './employerSchema'
+import createEducationBodySchema from './createEducationBodySchema'
+import createEmployerBodySchema from './createEmployerBodySchema'
 import languageSchema from './languageSchema'
 import projectSchema from './projectSchema'
 import skillSchema from './skillSchema'
@@ -18,8 +18,8 @@ const updateCvBodySchema = Joi.object<UpdateCvBody>({
     projects: Joi.array().items(projectSchema),
     skills: Joi.array().items(skillSchema),
     title: Joi.string(),
-    employers: Joi.array().items(employerSchema),
-    education: Joi.array().items(educationSchema),
+    employers: Joi.array().items(createEmployerBodySchema),
+    education: Joi.array().items(createEducationBodySchema),
 })
 
 export default updateCvBodySchema

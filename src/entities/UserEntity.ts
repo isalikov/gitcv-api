@@ -4,7 +4,7 @@ import { CvEntity } from './CvEntity'
 import { EducationEntity } from './EducationEntity'
 import { EmployerEntity } from './EmployerEntity'
 import { RepoEntity } from './RepoEntity'
-import { Language, Project, Skill, UniqueArray } from '../types'
+import { User } from '../types'
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -18,7 +18,7 @@ export class UserEntity {
     contacts: Record<string, string>
 
     @Column({ type: 'json', default: [] })
-    languages: UniqueArray<Language>
+    languages: User['languages']
 
     @Column({ default: '' })
     name: string
@@ -30,13 +30,13 @@ export class UserEntity {
     profile: string
 
     @Column({ type: 'json', default: [] })
-    projects: UniqueArray<Project>
+    projects: User['projects']
 
     @Column({ default: '' })
     position: string
 
     @Column({ type: 'json', default: [] })
-    skills: UniqueArray<Skill>
+    skills: User['skills']
 
     @OneToMany(() => EducationEntity, ({ user }) => user)
     education: EducationEntity[]

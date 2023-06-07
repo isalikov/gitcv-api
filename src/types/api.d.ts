@@ -2,7 +2,7 @@ import { Response, Request } from 'express'
 
 import * as core from 'express-serve-static-core'
 
-import { Cv, User } from './models'
+import { Cv, Education, Employer, User } from './models'
 import { IncomingHttpHeaders } from 'http'
 
 export type Headers = {
@@ -47,3 +47,9 @@ export type UpdateCvBody = Omit<Cv, 'id' | 'tag' | 'isVerified' | 'createdAt' | 
 export type UpdateCvTagBody = {
     value: string
 }
+
+export type CreateEmployerBody = Omit<Employer, 'id' | 'createdAt' | 'updatedAt'>
+export type UpdateEmployerBody = Partial<CreateEmployerBody>
+
+export type CreateEducationBody = Omit<Education, 'id' | 'createdAt' | 'updatedAt'>
+export type UpdateEducationBody = Partial<CreateEducationBody>

@@ -24,6 +24,12 @@ export class UserController {
         this.repositoryController = new RepoController(locals)
     }
 
+    public async getUserEntity(): Promise<UserEntity | null> {
+        return this.repository.findOne({
+            where: { id: this.githubID },
+        })
+    }
+
     public async getUser(): Promise<User | null> {
         return this.repository.findOne({
             where: { id: this.githubID },
@@ -51,11 +57,11 @@ export class UserController {
             updatedAt: timestamp,
         })
 
-        const user = await this.repository.findOne({
-            where: { id: this.githubID },
-        })
+        const user = await this.getUserEntity()
 
-        await this.repositoryController.sync(user)
+        if (user) {
+            await this.repositoryController.sync(user)
+        }
     }
 
     public async update(body: Partial<UpdateUserBody>): Promise<User> {
@@ -96,11 +102,10 @@ export class UserController {
             },
         )
 
-        const user = await this.repository.findOne({
-            where: { id: this.githubID },
-        })
-
-        await this.repositoryController.sync(user)
+        const user = await this.getUserEntity()
+        if (user) {
+            await this.repositoryController.sync(user)
+        }
 
         return this.getUser()
     }

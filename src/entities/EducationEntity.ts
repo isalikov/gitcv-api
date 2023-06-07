@@ -28,4 +28,10 @@ export class EducationEntity {
 
     @ManyToOne(() => UserEntity, (user) => user.education)
     user: UserEntity
+
+    @Column()
+    createdAt: number
+
+    @Column()
+    updatedAt: number
 }

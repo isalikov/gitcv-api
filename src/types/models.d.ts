@@ -1,4 +1,4 @@
-import { UniqueArray } from './shared'
+import { Timestamps, UniqueArray } from './shared'
 
 export type Language = {
     level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' | 'beginner' | 'native'
@@ -29,6 +29,8 @@ export type Employer = {
     id: number
     name: string
     position: string
+    createdAt: number
+    updatedAt: number
     description?: string
     from?: DatePoint
     to?: DatePoint
@@ -41,6 +43,8 @@ export type Education = {
     name: string
     faculty: string
     specialization: string
+    createdAt: number
+    updatedAt: number
     from?: DatePoint
     to?: DatePoint
     location?: string
@@ -61,8 +65,8 @@ export type Cv = {
     title: string
     isVerified: boolean
     isVisible: boolean
-    education: UniqueArray<Education>
-    employers: UniqueArray<Employer>
+    education: UniqueArray<Omit<Education, Timestamps>>
+    employers: UniqueArray<Omit<Employer, Timestamps>>
     languages: UniqueArray<Language>
     location: string
     name: string
