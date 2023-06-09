@@ -37,12 +37,11 @@ export type GenerateCvBody = {
     title: string
 }
 
-export type UpdateUserBody = Pick<
-    User,
-    'contacts' | 'languages' | 'name' | 'photo' | 'profile' | 'projects' | 'position' | 'skills'
+export type UpdateUserBody = Partial<
+    Pick<User, 'contacts' | 'languages' | 'name' | 'photo' | 'profile' | 'projects' | 'position' | 'skills'>
 >
 
-export type UpdateCvBody = Omit<Cv, 'id' | 'tag' | 'isVerified' | 'createdAt' | 'updatedAt'>
+export type UpdateCvBody = Partial<Omit<Cv, 'id' | 'tag' | 'isVerified' | 'createdAt' | 'updatedAt'>>
 
 export type UpdateCvTagBody = {
     value: string
