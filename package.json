@@ -8,7 +8,7 @@
   "author": "Iakov Salikov <salikovpro@gmail.com>",
   "types": "index.d.ts",
   "license": "UNLICENSED",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

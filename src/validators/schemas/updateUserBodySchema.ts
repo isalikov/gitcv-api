@@ -7,12 +7,13 @@ import skillSchema from './skillSchema'
 import { UpdateUserBody } from '../../types'
 
 const updateUserBodySchema = Joi.object<UpdateUserBody>({
+    name: Joi.string(),
+
     contacts: Joi.object<Record<string, string>>().pattern(Joi.string(), Joi.string()),
     languages: Joi.array().items(languageSchema),
-    name: Joi.string(),
-    photo: Joi.string().uri(),
-    position: Joi.string(),
-    profile: Joi.string(),
+    photo: Joi.string().uri().allow(null, ''),
+    position: Joi.string().allow(null, ''),
+    profile: Joi.string().allow(null, ''),
     projects: Joi.array().items(projectSchema),
     skills: Joi.array().items(skillSchema),
 })

@@ -4,13 +4,13 @@ import datePointSchema from './datePointSchema'
 import { UpdateEmployerBody } from '../../types'
 
 const createEmployerBodySchema = Joi.object<UpdateEmployerBody>({
-    name: Joi.string().required(),
-    position: Joi.string().required(),
-    description: Joi.string(),
+    name: Joi.string(),
+    position: Joi.string().allow(null, ''),
+    description: Joi.string().allow(null, ''),
     from: datePointSchema,
     to: datePointSchema,
-    location: Joi.string(),
-    website: Joi.string(),
+    location: Joi.string().allow(null, ''),
+    website: Joi.string().allow(null, ''),
 })
 
 export default createEmployerBodySchema
