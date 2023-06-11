@@ -23,8 +23,8 @@ export const omit = <T extends Record<string, unknown>, K extends string | numbe
     }, {} as Omit<T, K>)
 }
 
-export const getUniqueItems = <T extends Record<string, unknown>>(array: T[] = []): UniqueArray<T> =>
-    array.map((item) => ({
+export const getUniqueItems = <T extends Record<string, unknown>>(array?: T[]): UniqueArray<T> | undefined =>
+    array?.map((item) => ({
         ...item,
         uuid: uuidV4(),
     }))

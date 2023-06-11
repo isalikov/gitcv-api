@@ -8,6 +8,7 @@ const languageSchema = Joi.object<Language>({
         .valid(...VALID_LANGUAGE_LEVELS)
         .required(),
     title: Joi.string().required(),
+    uuid: Joi.string(),
 })
 
 export default languageSchema
