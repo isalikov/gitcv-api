@@ -4,7 +4,7 @@ import { OctokitController } from './OctokitController'
 import { RepoController } from './RepoController'
 import dataSource from '../data-source'
 import { UserEntity } from '../entities'
-import { User, Locals, UpdateUserBody, Skill, Project, Language } from '../types'
+import { User, Locals, UpdateUserBody, Skill, Project, Language, Repo, UniqueArray } from '../types'
 import { getUniqueItems, unixTimestamp } from '../utils'
 
 export class UserController {
@@ -42,6 +42,35 @@ export class UserController {
         })
     }
 
+    private static getSkills = (repos: Repo[]): UniqueArray<Skill> => {
+        const skills = repos.reduce<Skill[]>((result, repo) => {
+            return [...result, ...repo.stack]
+        }, [])
+
+        const map = new Map([])
+        for (const skill of skills) {
+            const value = map.get(skill.title)
+
+            if (value && typeof value === 'number') {
+                map.set(skill.title, value + skill.involvement)
+            } else {
+                map.set(skill.title, skill.involvement)
+            }
+        }
+
+        return getUniqueItems<Skill>(
+            Array.from(map.keys()).reduce<Skill[]>((result, title: string) => {
+                return [
+                    ...result,
+                    {
+                        title,
+                        involvement: map.get(title) as number,
+                    },
+                ]
+            }, []),
+        )
+    }
+
     public async create(): Promise<void> {
         const { login, name, avatar_url, bio } = await this.octokitController.getGithubUser()
 
@@ -62,6 +91,9 @@ export class UserController {
         if (user) {
             await this.repositoryController.sync(user)
         }
+
+        const { repos } = await this.getUser()
+        await this.update({ skills: UserController.getSkills(repos) })
     }
 
     public async update(body: Partial<UpdateUserBody>): Promise<User> {
@@ -106,6 +138,9 @@ export class UserController {
         if (user) {
             await this.repositoryController.sync(user)
         }
+
+        const { repos } = await this.getUser()
+        await this.update({ skills: UserController.getSkills(repos) })
 
         return this.getUser()
     }

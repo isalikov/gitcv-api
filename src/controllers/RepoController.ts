@@ -43,7 +43,7 @@ export class RepoController {
         return Promise.all(repos.map(async (repo) => this.extractRepo(repo)))
     }
 
-    public async sync(user: UserEntity): Promise<void> {
+    public async sync(user: UserEntity): Promise<Repo[]> {
         await this.repository.delete({ user })
         const repos = await this.parseRepos()
 
@@ -53,5 +53,7 @@ export class RepoController {
                 user,
             })
         }
+
+        return repos
     }
 }
