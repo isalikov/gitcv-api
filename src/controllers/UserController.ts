@@ -139,9 +139,6 @@ export class UserController {
             await this.repositoryController.sync(user)
         }
 
-        const { repos } = await this.getUser()
-        await this.update({ skills: UserController.getSkills(repos) })
-
         return this.getUser()
     }
 }
