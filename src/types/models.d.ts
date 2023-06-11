@@ -13,6 +13,7 @@ export type DatePoint = {
 export type Skill = {
     involvement: number
     title: string
+    uuid?: string
 }
 
 export type Repo = {
