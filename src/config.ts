@@ -13,4 +13,5 @@ export default {
     POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
     POSTGRES_PORT: parseInt(process.env.POSTGRES_PORT || '', 10),
     POSTGRES_USER: process.env.POSTGRES_USER,
+    POSTGRES_CA: process.env.POSTGRES_CA,
 }
