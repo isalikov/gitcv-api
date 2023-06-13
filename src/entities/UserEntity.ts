@@ -20,7 +20,7 @@ export class UserEntity {
     @Column({ type: 'json', default: [] })
     languages: User['languages']
 
-    @Column({ default: '' })
+    @Column({ nullable: true })
     name: string
 
     @Column()
@@ -32,7 +32,7 @@ export class UserEntity {
     @Column({ type: 'json', default: [] })
     projects: User['projects']
 
-    @Column({ default: '' })
+    @Column({ nullable: true })
     position: string
 
     @Column({ type: 'json', default: [] })
