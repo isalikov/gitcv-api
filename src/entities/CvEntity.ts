@@ -33,10 +33,10 @@ export class CvEntity {
     @Column({ nullable: true })
     location: string
 
-    @Column()
+    @Column({ nullable: true })
     name: string
 
-    @Column()
+    @Column({ nullable: true })
     position: string
 
     @Column({ type: 'text' })
