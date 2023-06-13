@@ -13,6 +13,7 @@ const getExtraConfig = () => {
     return {
         logging: false,
         ssl: {
+            rejectUnauthorized: false,
             ca: config.POSTGRES_CA,
         },
     }
